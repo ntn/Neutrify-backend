@@ -5,6 +5,8 @@ const logger = require("./utils/logger");
 const db = require("./server");
 
 const app = express();
+const jsonParser = bodyParser.json();
+
 // const cors = require("cors");
 
 require("express-async-errors");
@@ -15,6 +17,7 @@ const indexRouter = require("./controllers/index");
 app.use(middleware.requestLogger);
 app.use("/", indexRouter);
 app.use("/users", db.getUsers);
+app.use("/updateUser", jsonParser, db.updateUser);
 
 app.use(middleware.unknownUrl);
 app.use(middleware.errorHandler);

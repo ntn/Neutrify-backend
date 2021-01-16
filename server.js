@@ -22,6 +22,20 @@ const getUsers = (request, response) => {
   });
 };
 
+const updateUser = (request, response) => {
+  pool.query(
+    `UPDATE users SET emissions=${request.body.emissions}, offsets=${request.body.offsets} WHERE id=${request.body.id}; `,
+    (error, results) => {
+      if (error) {
+        throw error;
+      }
+      response.status(200).json(results.rows);
+    }
+  );
+  response.status(200);
+};
+
 module.exports = {
   getUsers,
+  updateUser,
 };
